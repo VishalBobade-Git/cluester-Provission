@@ -50,21 +50,7 @@ pipeline {
             }
         }
 
-        stage('Install Docker') {
-            steps {
-                sh '''
-                echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/apt-get, /usr/bin/curl, /usr/bin/apt-key, /usr/bin/add-apt-repository, /usr/bin/usermod, /usr/bin/newgrp" | sudo tee /etc/sudoers.d/jenkins
-                sudo apt-get update
-                sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-                curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-                sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-                sudo apt-get update
-                sudo apt-get install -y docker-ce
-                sudo usermod -aG docker $USER
-                newgrp docker
-                '''
-            }
-        }
+        
 
         stage('Install Kind') {
             steps {
